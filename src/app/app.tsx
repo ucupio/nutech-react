@@ -1,12 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import styles from './app.module.css';
-
-import NxWelcome from './nx-welcome';
+import Login from './login';
+import './index.css';
 
 export function App() {
   return (
     <div>
-      <NxWelcome title="nutech-react" />
+      <Login />
     </div>
   );
 }
