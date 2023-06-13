@@ -1,11 +1,47 @@
-export default function Login() {
+import { FormEvent, useState } from 'react';
+import CustomInput from './components/CustomInput';
+
+interface LoginProps {
+  setToken: (token: object) => void;
+}
+
+interface LoginUserParams {
+  username: string;
+  password: string;
+}
+
+const loginUser = async (credentials: LoginUserParams): Promise<object> => {
+  return fetch('https://shark-app-y5u3o.ondigitalocean.app/api/auth/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(credentials),
+    mode: 'cors',
+    credentials: 'same-origin',
+  }).then((data) => {
+    console.log(data);
+    return data.json();
+  });
+};
+
+export default function Login({ setToken }: LoginProps) {
+  const [password, setPassword] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    const token = await loginUser({
+      username,
+      password,
+    });
+    setToken(token as object);
+  };
+
   return (
     <section className="h-screen w-full bg-[#fff]">
-      <div className="h-full px-6 py-24">
-        <div className="w-full text-center text-3xl md:text-2xl sm:text-xl">
-          Apotek Online
-        </div>
-        <div className="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between">
+      <div className="h-full px-6 py-20">
+        <div className="flex lg:flex-col h-full flex-wrap items-center justify-center lg:justify-start">
           <div className="mb-12 md:mb-0 md:w-8/12 lg:w-6/12">
             <img
               src="https://unblast.com/wp-content/uploads/2022/07/Pharmacy-Illustration-AI.jpg"
@@ -14,40 +50,20 @@ export default function Login() {
             />
           </div>
 
-          <div className="md:w-8/12 lg:ml-6 lg:w-5/12">
-            <form method="post">
-              <div className="relative z-0 w-full mb-6 px-4 rounded group bg-slate-600">
-                <input
-                  type="text"
-                  name="username"
-                  id="floating_email"
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  required
-                />
-                <label
-                  htmlFor="floating_email"
-                  className="peer-focus:font-medium absolute text-sm text-blue-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-4 peer-focus:top-2 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-125 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Username
-                </label>
-              </div>
-              <div className="relative z-0 w-full mb-6 px-4 rounded group bg-slate-600">
-                <input
-                  type="password"
-                  name="password"
-                  id="floating_password"
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  required
-                />
-                <label
-                  htmlFor="floating_password"
-                  className="peer-focus:font-medium absolute text-sm text-blue-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-2 -z-10 origin-[0] peer-focus:left-4 peer-focus:top-2 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-125 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Password
-                </label>
-              </div>
+          <div className="md:w-10/12 lg:w-4/12 text-center">
+            <form className="w-full" onSubmit={handleSubmit}>
+              <CustomInput
+                type={'text'}
+                placeholder={'Username'}
+                id={'username'}
+                onChange={(value) => setUsername(value)}
+              />
+              <CustomInput
+                type={'password'}
+                placeholder={'Password'}
+                id={'password'}
+                onChange={(value) => setPassword(value)}
+              />
 
               {/* <div className="mb-6 flex items-center justify-between">
                 <div className="mb-[0.125rem] block min-h-[1.5rem] pl-[1.5rem]">
@@ -76,9 +92,7 @@ export default function Login() {
 
               <button
                 type="submit"
-                className="inline-block bg-[#3b5998] w-full rounded-full bg-primary px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-                data-te-ripple-init
-                data-te-ripple-color="light"
+                className="inline-block bg-[#3b5998] w-full rounded-md bg-primary px-7 py-4 text-xl font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
               >
                 Sign in
               </button>
