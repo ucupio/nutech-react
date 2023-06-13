@@ -18,7 +18,6 @@ const loginUser = async (credentials: LoginUserParams): Promise<object> => {
     },
     body: JSON.stringify(credentials),
     mode: 'cors',
-    credentials: 'same-origin',
   }).then((data) => {
     console.log(data);
     return data.json();
