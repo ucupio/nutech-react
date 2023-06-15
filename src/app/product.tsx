@@ -153,7 +153,7 @@ export default function Products() {
     <Container>
       {isLoading && (
         <Modal onClose={handleCloseModal} withNoClose>
-          <div className="flex justify-center items-center w-full h-full">
+          <div className="flex justify-center items-center p-20 w-full h-full">
             <BiLoader className="animate animate-spin" />
           </div>
         </Modal>
