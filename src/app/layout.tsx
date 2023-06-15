@@ -2,8 +2,8 @@ import { Link, Outlet } from 'react-router-dom';
 
 export default function Layout() {
   return (
-    <div className="h-screen w-screen">
-      <div className=" flex justify-between items-center px-6 py-4">
+    <div className="relative h-screen w-screen overflow-hidden">
+      <div className="fixed top-0 left-0 right-0 flex justify-between items-center px-6 py-4">
         <Link to={'/'}>
           <div className="italic font-bold font-serif">Apotek Online</div>
         </Link>
@@ -26,7 +26,9 @@ export default function Layout() {
           <div className="bg-black h-[2px] w-4" />
         </div>
       </div>
-      <Outlet />
+      <div className="fixed top-[56px]">
+        <Outlet />
+      </div>
     </div>
   );
 }

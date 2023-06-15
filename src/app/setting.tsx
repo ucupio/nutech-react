@@ -1,3 +1,5 @@
+import Container from './components/Container';
+
 export default function Setting() {
-  return <div>Settings</div>;
+  return <Container>Settings</Container>;
 }

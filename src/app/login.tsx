@@ -18,10 +18,14 @@ const loginUser = async (credentials: LoginUserParams): Promise<object> => {
     },
     body: JSON.stringify(credentials),
     mode: 'cors',
-  }).then((data) => {
-    console.log(data);
-    return data.json();
-  });
+  })
+    .then((data) => {
+      console.log(data);
+      return data.json();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 export default function Login({ setToken }: LoginProps) {
@@ -38,10 +42,10 @@ export default function Login({ setToken }: LoginProps) {
   };
 
   return (
-    <section className="h-screen w-full bg-[#fff]">
-      <div className="h-full px-6 py-20">
-        <div className="flex lg:flex-col h-full flex-wrap items-center justify-center lg:justify-start">
-          <div className="mb-12 md:mb-0 md:w-8/12 lg:w-6/12">
+    <section className="h-screen w-screen bg-[#fff] overflow-hidden">
+      <div className="h-full w-full p-6 overflow-scroll">
+        <div className="flex lg:flex-col h-full flex-wrap items-center justify-center">
+          <div className="p-6 w-full h-auto md:w-6/12">
             <img
               src="https://unblast.com/wp-content/uploads/2022/07/Pharmacy-Illustration-AI.jpg"
               className="w-full"
@@ -49,7 +53,7 @@ export default function Login({ setToken }: LoginProps) {
             />
           </div>
 
-          <div className="md:w-10/12 lg:w-4/12 text-center">
+          <div className="w-full h-full md:w-6/12 text-center">
             <form className="w-full" onSubmit={handleSubmit}>
               <CustomInput
                 type={'text'}
