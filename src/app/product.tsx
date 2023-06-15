@@ -261,6 +261,7 @@ export default function Products() {
               name="productname"
               placeholder="Nama"
               className="border rounded p-1"
+              defaultValue={inputProduct.productname}
               onChange={(e) =>
                 setInputProduct({
                   ...inputProduct,
@@ -272,6 +273,7 @@ export default function Products() {
               name="buyingprice"
               placeholder="Harga beli"
               className="border rounded p-1"
+              defaultValue={inputProduct.buyingprice}
               onChange={(e) =>
                 setInputProduct({
                   ...inputProduct,
@@ -283,6 +285,7 @@ export default function Products() {
               name="sellingprice"
               placeholder="Harga Jual"
               className="border rounded p-1"
+              defaultValue={inputProduct.sellingprice}
               onChange={(e) =>
                 setInputProduct({
                   ...inputProduct,
@@ -294,6 +297,7 @@ export default function Products() {
               name="stock"
               placeholder="Stok Barang"
               className="border rounded p-1"
+              defaultValue={inputProduct.stock}
               onChange={(e) =>
                 setInputProduct({
                   ...inputProduct,
